@@ -36,7 +36,7 @@ class NcovSpider(scrapy.Spider):
             'infoSource'] + '](' + body['sourceUrl'] + ')  💊 [丁香园疫情页](https://3g.dxy.cn/newh5/view/pneumonia) ')
 
         post_data = {
-            'text': body['title'],
+            'text': body['id'] + '.' + body['title'],
             'desp': content
         }
         url = 'https://sc.ftqq.com/' + self.seckey + '.send'
