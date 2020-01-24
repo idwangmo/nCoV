@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-import logging
 
 import redis
 import requests
@@ -29,7 +28,7 @@ class NcovSpider(scrapy.Spider):
             self.push(ncov_body)
             r.set('ncov', str(ncov_body['id']))
         else:
-            logging.info("没有新的消息")
+            self.logger.info("没有新消息")
 
     def push(self, body):
         content = (body['summary'] + '\r\n\r\n --- \r\n\r\n ⚠️ 如发现标题编号不连续，请点击下边疫情页确认可能错过的播报。 \r\n\r\n 💊 [消息源:' + body[
@@ -41,5 +40,5 @@ class NcovSpider(scrapy.Spider):
         }
         url = 'https://sc.ftqq.com/' + self.seckey + '.send'
 
-        log = requests.post(url=url, data=post_data)
-        logging.info(str(log.content, encoding="utf-8"))
+        response = requests.post(url=url, data=post_data)
+        self.logger.info(str(response.content, encoding="utf-8"))
