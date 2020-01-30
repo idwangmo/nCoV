@@ -2,8 +2,9 @@
 import json
 
 import redis
-import requests
 import scrapy
+
+from ..util import push_serverchain
 
 r = redis.Redis()
 
@@ -34,11 +35,7 @@ class NcovSpider(scrapy.Spider):
         content = (body['summary'] + '\r\n\r\n --- \r\n\r\n ⚠️ 如发现标题编号不连续，请点击下边疫情页确认可能错过的播报。 \r\n\r\n 💊 [消息源:' + body[
             'infoSource'] + '](' + body['sourceUrl'] + ')  💊 [丁香园疫情页](https://3g.dxy.cn/newh5/view/pneumonia) ')
 
-        post_data = {
-            'text': str(body['id']) + '.' + body['title'],
-            'desp': content
-        }
-        url = 'https://sc.ftqq.com/' + self.seckey + '.send'
+        title = str(body['id']) + '.' + body['title'],
 
-        response = requests.post(url=url, data=post_data)
-        self.logger.info(str(response.content, encoding="utf-8"))
+        response = push_serverchain(title, content, self.seckey)
+        self.logger.info(response)
