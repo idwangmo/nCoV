@@ -10,3 +10,4 @@ conda activate nCov
 cd /home/idwangmo/nCoV || exit
 
 scrapy crawl ncov
+scrapy crawl 2019ncov
