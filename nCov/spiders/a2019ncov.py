@@ -27,7 +27,9 @@ class A2019ncovSpider(scrapy.Spider):
             r.set('2019ncov', ncov_news['guid'])
 
     def push(self, ncov):
-        title = re.search(r'(?<=【)[^】]+', ncov['title']).group(0)
-        content = ncov['contentSnippet'] + '\r\n\r\n --- \r\n\r\n [消息源](' + ncov['link'] + ')'
+        title = re.search(r'(?<=【)[^】]+',
+                          ncov['title']).group(0).replace('#', '')
+        content = (str(ncov['contentSnippet']).replace('#', '') +
+                   '\r\n\r\n --- \r\n\r\n [消息源](' + ncov['link'] + ')')
         response = push_serverchain(title, content, self.seckey)
         self.logger.info(response)
