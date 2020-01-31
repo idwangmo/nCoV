@@ -14,7 +14,6 @@ BOT_NAME = 'nCov'
 SPIDER_MODULES = ['nCov.spiders']
 NEWSPIDER_MODULE = 'nCov.spiders'
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'nCov (+http://www.yourdomain.com)'
 
@@ -64,9 +63,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'nCov.pipelines.NcovPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'nCov.pipelines.NcovPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -88,3 +87,4 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+SERVER_CHAIN_KEY = 'key'
